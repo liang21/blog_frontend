@@ -19,7 +19,6 @@ module.exports = {
         'revert', // 回退
         'build' // 打包
       ]
-
     ],
     // subject 大小写不做校验
     'subject-case': [0]
