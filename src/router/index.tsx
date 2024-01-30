@@ -15,12 +15,12 @@ const router = [
       {
         path: '/home',
         element: <Home />
+      },
+      {
+        path: '/about',
+        element: <About />
       }
     ]
-  },
-  {
-    path: '/about',
-    element: <About />
   },
   {
     path: '*',

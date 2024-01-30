@@ -1,51 +1,55 @@
-import { Layout } from 'antd'
-import { Header, Content, Footer } from 'antd/es/layout/layout'
-import React from 'react'
+import { Layout, Menu, MenuProps } from 'antd'
+import React, { useState } from 'react'
+import './index.less'
+import { Outlet } from 'react-router-dom'
 
 export default function index() {
-  const headerStyle: React.CSSProperties = {
-    textAlign: 'center',
-    color: '#fff',
-    height: 64,
-    paddingInline: 48,
-    lineHeight: '64px',
-    backgroundColor: '#4096ff'
-  }
+  const { Header, Footer, Content } = Layout
+  const items: MenuProps['items'] = [
+    {
+      label: '主页',
+      key: 'home'
+    },
+    {
+      label: '归档',
+      key: 'place'
+    },
+    {
+      label: '标签',
+      key: 'tag'
+    },
+    {
+      label: '分类',
+      key: 'category'
+    },
+    {
+      label: '关于',
+      key: 'about'
+    }
+  ]
+  const [current, setCurrent] = useState('mail')
 
-  const contentStyle: React.CSSProperties = {
-    textAlign: 'center',
-    minHeight: 120,
-    lineHeight: '120px',
-    color: '#fff',
-    backgroundColor: '#0958d9'
-  }
-
-  const siderStyle: React.CSSProperties = {
-    textAlign: 'center',
-    lineHeight: '120px',
-    color: '#fff',
-    backgroundColor: '#1677ff'
-  }
-
-  const footerStyle: React.CSSProperties = {
-    textAlign: 'center',
-    color: '#fff',
-    backgroundColor: '#4096ff'
-  }
-
-  const layoutStyle = {
-    borderRadius: 8,
-    overflow: 'hidden',
-    width: 'calc(50% - 8px)',
-    maxWidth: 'calc(50% - 8px)'
+  const onClick: MenuProps['onClick'] = (e) => {
+    console.log('click ', e)
+    setCurrent(e.key)
   }
   return (
-    <div>
-      <Layout style={layoutStyle}>
-        <Header style={headerStyle}>Header</Header>
-        <Content style={contentStyle}>Content</Content>
-        <Footer style={footerStyle}>Footer</Footer>
-      </Layout>
-    </div>
+    <Layout>
+      <Header className="header">
+        <div>Header</div>
+        <Menu
+          onClick={onClick}
+          selectedKeys={[current]}
+          mode="horizontal"
+          items={items}
+        />
+      </Header>
+      <Content className="content">
+        <Outlet></Outlet>
+      </Content>
+      <Footer className="footer">
+        Ant Design ©{new Date().getFullYear()} Created by Ant UED
+      </Footer>
+    </Layout>
   )
 }
